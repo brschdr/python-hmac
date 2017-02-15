@@ -8,6 +8,9 @@ Description: This HMAC implementation is in accordance with RFC 2104 specificati
              User supplied "key" and "message" must be a Python Byte Object.
 
              Usage:
-
+             
+             from hmac import HMAC
+             from hashlib import md5
+             
              h = HMAC (b"key",b"The quick brown fox jumps over the lazy dog",md5)
              h.hexdigest() => outputs 80070713463e7749b90c2dc24911e275
