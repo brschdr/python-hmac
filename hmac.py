@@ -4,7 +4,7 @@ Title: A "keyed-hash message authentication code" implementation in pure python.
 
 Author: Baris CUHADAR. E-mail: baris@neovo.org
 
-License: This code is in Public Domain
+License: This code is in Public Domain or MIT License, choose a suitable one for you.
 
 Description: This HMAC implementation is in accordance with RFC 2104 specification.
              User supplied "key" and "message" must be a Python Byte Object.
