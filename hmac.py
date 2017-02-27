@@ -4,7 +4,7 @@ Title: A "keyed-hash message authentication code" implementation in pure python.
 
 Author: Baris CUHADAR. E-mail: baris@neovo.org
 
-License: This code is in Public Domain or MIT License, choose a suitable one for you.
+License: This code is in Public Domain or MIT License, choose suitable one for you.
 
 Description: This HMAC implementation is in accordance with RFC 2104 specification.
              User supplied "key" and "message" must be a Python Byte Object.
@@ -16,15 +16,15 @@ Description: This HMAC implementation is in accordance with RFC 2104 specificati
 """
 
 
-
 from hashlib import md5,sha1,sha256
-
+from zlib import crc32,adler32
 
 class HMAC:
 
-        def __init__(self,key,message,hash_h = md5):
+        def __init__(self,key,message,hash_h=md5):
                 
                 """ key and message must be byte object """
+                
                 
                 self.i_key_pad = bytearray()
                 self.o_key_pad = bytearray()
@@ -58,7 +58,9 @@ class HMAC:
 
 
         def digest(self):
-                
+
+                if self.hash_h == adler32 or self.hash_h == crc32:
+                        return self.hash_h(bytes(self.o_key_pad)+str(self.hash_h(bytes(self.i_key_pad)+self.message)).encode())
                 """ returns a digest, byte object. """
                 """ check if init_flag is set """
                 
@@ -77,6 +79,8 @@ class HMAC:
 
         def hexdigest(self):
 
+                if self.hash_h == adler32 or self.hash_h == crc32:
+                        return hex(self.hash_h(bytes(self.o_key_pad)+str(self.hash_h(bytes(self.i_key_pad)+self.message)).encode()))[2:]
                 """ returns a digest in hexadecimal. """
                 """ check if init_flag is set """
                 
